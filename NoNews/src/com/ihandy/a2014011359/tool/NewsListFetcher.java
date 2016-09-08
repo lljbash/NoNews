@@ -38,7 +38,11 @@ public class NewsListFetcher {
                             Log.i("Json img", dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url"));
                             NewsEntity news = new NewsEntity();
                             news.setId(i);
-                            news.setNewsId(Long.valueOf(dataArray.getJSONObject(i).getString("news_id")));
+                            try {
+                                news.setNewsId(Long.valueOf(dataArray.getJSONObject(i).getString("news_id")));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
                             news.setCollectStatus(false);
                             news.setCommentNum(0);
                             news.setInterestedStatus(true);
@@ -46,14 +50,30 @@ public class NewsListFetcher {
                             news.setReadStatus(false);
                             news.setNewsCategory(text);
                             news.setNewsCategoryId(channel_id);
-                            news.setSource(dataArray.getJSONObject(i).getString("origin"));
-                            news.setTitle(dataArray.getJSONObject(i).getString("title"));
-                            news.setSource_url(dataArray.getJSONObject(i).getJSONObject("source").getString("url"));
-                            List<String> url_list = new ArrayList<String>();
-                            String url = dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url");
-                            news.setPicOne(url);
-                            url_list.add(url);
-                            news.setPicList(url_list);
+                            try {
+                                news.setSource(dataArray.getJSONObject(i).getString("origin"));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                news.setTitle(dataArray.getJSONObject(i).getString("title"));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                news.setSource_url(dataArray.getJSONObject(i).getJSONObject("source").getString("url"));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                List<String> url_list = new ArrayList<String>();
+                                String url = dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url");
+                                news.setPicOne(url);
+                                url_list.add(url);
+                                news.setPicList(url_list);
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
                             news.setPublishTime((long) i);
                             news.setMark(5);
                             news.setIsLarge(false);
