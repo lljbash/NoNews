@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/NoNews/NoNews.iml" filepath="$PROJECT_DIR$/NoNews/NoNews.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library_SlidingMenu/library_SlidingMenu.iml" filepath="$PROJECT_DIR$/library/library_SlidingMenu/library_SlidingMenu.iml" />
-    </modules>
-  </component>
-</project>
