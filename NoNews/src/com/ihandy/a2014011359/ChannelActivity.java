@@ -13,7 +13,6 @@ import com.ihandy.a2014011359.view.OtherGridView;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -258,7 +257,7 @@ public class ChannelActivity extends BaseActivity implements OnItemClickListener
 		saveChannel();
 		if(userAdapter.isListChanged()){
 			Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-			setResult(MainActivity.CHANNELRESULT, intent);
+			setResult(MainActivity.CHANNEL_RESULT, intent);
 			finish();
 			Log.d(TAG, "数据发生改变");
 		}else{

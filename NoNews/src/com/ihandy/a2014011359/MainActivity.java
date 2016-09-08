@@ -9,7 +9,6 @@ import com.ihandy.a2014011359.bean.ChannelItem;
 import com.ihandy.a2014011359.bean.ChannelManage;
 import com.ihandy.a2014011359.fragment.NewsFragment;
 import com.ihandy.a2014011359.tool.BaseTools;
-import com.ihandy.a2014011359.tool.Constants;
 import com.ihandy.a2014011359.view.ColumnHorizontalScrollView;
 import com.ihandy.a2014011359.view.DrawerView;
 
@@ -69,9 +68,9 @@ public class MainActivity extends FragmentActivity {
 	/** head 头部 的右侧菜单 按钮*/
 	private ImageView top_more;
 	/** 请求CODE */
-	public final static int CHANNELREQUEST = 1;
-	/** 调整返回的RESULTCODE */
-	public final static int CHANNELRESULT = 10;
+	public final static int CHANNEL_REQUEST = 1;
+	/** 调整返回的RESULT_CODE */
+	public final static int CHANNEL_RESULT = 10;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,7 +99,7 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent_channel = new  Intent(getApplicationContext(), ChannelActivity.class);
-				startActivityForResult(intent_channel, CHANNELREQUEST);
+				startActivityForResult(intent_channel, CHANNEL_REQUEST);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			}
 		});
@@ -128,12 +127,12 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		});
-		setChangelView();
+		setChangeView();
 	}
 	/** 
 	 *  当栏目项发生变化时候调用
 	 * */
-	private void setChangelView() {
+	private void setChangeView() {
 		initColumnData();
 		initTabColumn();
 		initFragment();
@@ -189,10 +188,10 @@ public class MainActivity extends FragmentActivity {
 	/** 
 	 *  选择的Column里面的Tab
 	 * */
-	private void selectTab(int tab_postion) {
-		columnSelectIndex = tab_postion;
+	private void selectTab(int tab_position) {
+		columnSelectIndex = tab_position;
 		for (int i = 0; i < mRadioGroup_content.getChildCount(); i++) {
-			View checkView = mRadioGroup_content.getChildAt(tab_postion);
+			View checkView = mRadioGroup_content.getChildAt(tab_position);
 			int k = checkView.getMeasuredWidth();
 			int l = checkView.getLeft();
 			int i2 = l + k / 2 - mScreenWidth / 2;
@@ -204,13 +203,13 @@ public class MainActivity extends FragmentActivity {
 		//判断是否选中
 		for (int j = 0; j <  mRadioGroup_content.getChildCount(); j++) {
 			View checkView = mRadioGroup_content.getChildAt(j);
-			boolean ischeck;
-			if (j == tab_postion) {
-				ischeck = true;
+			boolean is_checked;
+			if (j == tab_position) {
+				is_checked = true;
 			} else {
-				ischeck = false;
+				is_checked = false;
 			}
-			checkView.setSelected(ischeck);
+			checkView.setSelected(is_checked);
 		}
 	}
 	/** 
@@ -223,13 +222,13 @@ public class MainActivity extends FragmentActivity {
 			Bundle data = new Bundle();
     		data.putString("text", userChannelList.get(i).getName());
     		data.putInt("id", userChannelList.get(i).getId());
-			NewsFragment newfragment = new NewsFragment();
-			newfragment.setArguments(data);
-			fragments.add(newfragment);
+			NewsFragment newsfragment = new NewsFragment();
+			newsfragment.setArguments(data);
+			fragments.add(newsfragment);
 		}
-		NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+		NewsFragmentPagerAdapter mAdapter = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
 //		mViewPager.setOffscreenPageLimit(0);
-		mViewPager.setAdapter(mAdapetr);
+		mViewPager.setAdapter(mAdapter);
 		mViewPager.setOnPageChangeListener(pageListener);
 	}
 	/** 
@@ -292,9 +291,9 @@ public class MainActivity extends FragmentActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		switch (requestCode) {
-		case CHANNELREQUEST:
-			if(resultCode == CHANNELRESULT){
-				setChangelView();
+		case CHANNEL_REQUEST:
+			if(resultCode == CHANNEL_RESULT){
+				setChangeView();
 			}
 			break;
 
