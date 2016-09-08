@@ -53,11 +53,7 @@
     <string name="day_yesterday">昨天</string>
     <string name="day_before">前天</string>
     <string name="search_count_fmt">发现%1$s篇文章</string>
-    <string name="ss_pattern_update">发现%1$d条更新</string>
     <string name="pattern_update">发现%1$d条更新</string>
-    <string name="city_category_list_header">点击选择其他城市</string>
-    <string name="city_category_list_hint">选择城市，立即查看本地新闻</string>
-    <string name="city_category_list_notify_no_city">请先选择您关注的城市</string>
     <string name="retry_large_image"><u>加载失败，点击重试</u></string>
 
 </resources>
