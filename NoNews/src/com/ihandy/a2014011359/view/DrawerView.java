@@ -14,7 +14,9 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnClosedListener;
 import com.ihandy.a2014011359.R;
 import com.ihandy.a2014011359.SettingsActivity;
-/** 
+import com.ihandy.a2014011359.FavoriteActivity;
+import com.ihandy.a2014011359.ChannelActivity;
+/**
  * 自定义SlidingMenu 测拉菜单类
  * */
 public class DrawerView implements OnClickListener{
@@ -23,6 +25,9 @@ public class DrawerView implements OnClickListener{
 	private SwitchButton night_mode_btn;
 	private TextView night_mode_text;
 	private RelativeLayout setting_btn;
+	private RelativeLayout about_btn;
+	private RelativeLayout favorite_btn;
+	public final static int CHANNELREQUEST = 1;
 	public DrawerView(Activity activity) {
 		this.activity = activity;
 	}
@@ -43,16 +48,16 @@ public class DrawerView implements OnClickListener{
 		localSlidingMenu.setSecondaryMenu(R.layout.profile_drawer_right);
 		localSlidingMenu.setSecondaryShadowDrawable(R.drawable.shadowright);
 		localSlidingMenu.setOnOpenedListener(new SlidingMenu.OnOpenedListener() {
-					public void onOpened() {
-						
-					}
-				});
+			public void onOpened() {
+
+			}
+		});
 		localSlidingMenu.setOnClosedListener(new OnClosedListener() {
-			
+
 			@Override
 			public void onClosed() {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		initView();
@@ -63,7 +68,7 @@ public class DrawerView implements OnClickListener{
 		night_mode_btn = (SwitchButton)localSlidingMenu.findViewById(R.id.night_mode_btn);
 		night_mode_text = (TextView)localSlidingMenu.findViewById(R.id.night_mode_text);
 		night_mode_btn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			
+
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
@@ -80,21 +85,36 @@ public class DrawerView implements OnClickListener{
 		}else{
 			night_mode_text.setText(activity.getResources().getString(R.string.action_day_mode));
 		}
-		
+
 		setting_btn =(RelativeLayout)localSlidingMenu.findViewById(R.id.setting_btn);
 		setting_btn.setOnClickListener(this);
+		about_btn =(RelativeLayout)localSlidingMenu.findViewById(R.id.about_btn);
+		about_btn.setOnClickListener(this);
+		favorite_btn =(RelativeLayout)localSlidingMenu.findViewById(R.id.favorite_btn);
+		favorite_btn.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.setting_btn:
-			activity.startActivity(new Intent(activity,SettingsActivity.class));
-			activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-			break;
-
-		default:
-			break;
+			case R.id.setting_btn:
+				//activity.startActivity(new Intent(activity,SettingsActivity.class));
+				//activity.startActivity(new Intent(activity,ChannelActivity.class));
+				//activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				Intent intent_channel = new  Intent(activity.getApplicationContext(), ChannelActivity.class);
+				activity.startActivityForResult(intent_channel, CHANNELREQUEST);
+				activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				break;
+			case R.id.about_btn:
+				activity.startActivity(new Intent(activity,SettingsActivity.class));
+				activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				break;
+			case R.id.favorite_btn:
+				activity.startActivity(new Intent(activity,FavoriteActivity.class));
+				activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				break;
+			default:
+				break;
 		}
 	}
 }

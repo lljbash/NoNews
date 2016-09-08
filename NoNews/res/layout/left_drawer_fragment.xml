@@ -48,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.0"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
 
             <RelativeLayout
                 android:id="@+id/pgc_btn"
-                style="@style/left_drawer_item_layout" 
+                style="@style/left_drawer_item_layout"
                 android:visibility="gone">
 
                 <TextView
@@ -114,7 +115,8 @@
 
             <RelativeLayout
                 android:id="@+id/search_btn"
-                style="@style/left_drawer_item_layout" >
+                style="@style/left_drawer_item_layout"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/left_drawer_item_text"
@@ -131,14 +133,15 @@
                 <TextView
                     style="@style/left_drawer_item_text"
                     android:drawableLeft="@drawable/ic_drawer_favorite"
-                    android:text="@string/left_drawer_item_favorite" />
+                    android:text="Favorite" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
                 android:id="@+id/message_btn"
-                style="@style/left_drawer_item_layout" >
+                style="@style/left_drawer_item_layout"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/message_text"
@@ -164,7 +167,8 @@
             <RelativeLayout
                 android:id="@+id/offline_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/offline_btn"
@@ -225,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="50.0dip"
                 android:orientation="vertical"
-                android:visibility="visible" >
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/app_activity_btn"
@@ -261,14 +265,15 @@
                 <TextView
                     style="@style/left_drawer_item_text"
                     android:drawableLeft="@drawable/ic_drawer_setting"
-                    android:text="@string/left_drawer_item_setting" />
+                    android:text="Category Manager" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
                 android:id="@+id/feedback_btn"
-                style="@style/left_drawer_item_layout" >
+                style="@style/left_drawer_item_layout"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/left_drawer_item_text"
@@ -279,14 +284,14 @@
             <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
-                android:id="@+id/appstore_btn"
+                android:id="@+id/about_btn"
                 style="@style/left_drawer_item_layout"
                 android:visibility="visible" >
 
                 <TextView
                     style="@style/left_drawer_item_text"
                     android:drawableLeft="@drawable/ic_drawer_appstore"
-                    android:text="@string/left_drawer_item_appstore" />
+                    android:text="About" />
             </RelativeLayout>
 
             <ImageView
@@ -302,7 +307,8 @@
         android:layout_marginLeft="19.0dip"
         android:layout_weight="0.0"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.ihandy.a2014011359.view.SwitchButton
             android:id="@+id/night_mode_btn"

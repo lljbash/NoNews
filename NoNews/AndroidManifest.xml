@@ -35,6 +35,8 @@
         </activity>
         <activity android:name="com.ihandy.a2014011359.ImageShowActivity" >
         </activity>
+        <activity android:name="com.ihandy.a2014011359.FavoriteActivity" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

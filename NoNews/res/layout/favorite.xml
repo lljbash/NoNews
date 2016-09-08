@@ -29,7 +29,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10.0dip" >
+                android:padding="10.0dip">
 
                 <LinearLayout
                     android:id="@+id/night_mode"
@@ -58,7 +58,7 @@
                     <TextView
                         android:id="@+id/list_mode_text"
                         style="@style/setting_item_text"
-                        android:text="name:Haoyue Tong" />
+                        android:text="setting_name" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -78,7 +78,7 @@
                     <TextView
                         android:id="@+id/font_size_text"
                         style="@style/setting_item_text"
-                        android:text="student number:2014011403" />
+                        android:text="setting_number" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -102,7 +102,7 @@
                     <TextView
                         android:id="@+id/list_comment_text"
                         style="@style/setting_item_text"
-                        android:text="email:tong-14@mails.tsinghua.edu.cn" />
+                        android:text="setting_email" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -126,7 +126,7 @@
                     <TextView
                         android:id="@+id/refresh_list_text"
                         style="@style/setting_item_text"
-                        android:text="phone:18813119655" />
+                        android:text="setting_phone" />
 
                     <View
                         android:layout_width="0.0dip"

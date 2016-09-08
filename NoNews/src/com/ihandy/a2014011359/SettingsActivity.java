@@ -30,8 +30,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener{
 	}
 
 	private void initData() {
-		title.setText("设置");
-		right_text.setText("意见反馈");
+		title.setText("About");
 	}
 	
 	@Override

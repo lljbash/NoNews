@@ -131,8 +131,8 @@ public class NewsAdapter extends BaseAdapter implements SectionIndexer, HeaderAd
 		NewsEntity news = getItem(position);
 		mHolder.item_title.setText(news.getTitle());
 		mHolder.item_source.setText(news.getSource());
-		mHolder.comment_count.setText("评论" + news.getCommentNum());
-		mHolder.publish_time.setText(news.getPublishTime() + "小时前");
+		//mHolder.comment_count.setText("评论" + news.getCommentNum());
+		//mHolder.publish_time.setText(news.getPublishTime() + "小时前");
 		List<String> imgUrlList = news.getPicList();
 		mHolder.popicon.setVisibility(View.VISIBLE);
 		mHolder.comment_count.setVisibility(View.VISIBLE);
