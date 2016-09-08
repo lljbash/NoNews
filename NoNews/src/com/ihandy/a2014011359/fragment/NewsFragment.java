@@ -105,6 +105,11 @@ public class NewsFragment extends Fragment {
         newsList = NewsListFetcher.getNewsList(text, channel_id);
     }
 
+    public void updateData() {
+        NewsListFetcher.updateNewsList(newsList, text, channel_id);
+        handler.obtainMessage(SET_NEWSLIST).sendToTarget();
+    }
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -112,9 +117,10 @@ public class NewsFragment extends Fragment {
             switch (msg.what) {
                 case SET_NEWSLIST:
                     detail_loading.setVisibility(View.GONE);
-                    if (mAdapter == null) {
-                        mAdapter = new NewsAdapter(activity, newsList);
-                    }
+                    //if (mAdapter == null) {
+                    //    mAdapter = new NewsAdapter(activity, newsList);
+                    //}
+                    mAdapter = new NewsAdapter(activity, newsList);
                     mListView.setAdapter(mAdapter);
                     mListView.setOnScrollListener(mAdapter);
                     mListView.setPinnedHeaderView(LayoutInflater.from(activity).inflate(R.layout.list_item_section, mListView, false));

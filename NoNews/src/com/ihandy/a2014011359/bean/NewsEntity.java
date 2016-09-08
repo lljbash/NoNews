@@ -3,7 +3,7 @@ package com.ihandy.a2014011359.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class NewsEntity implements Serializable {
+public class NewsEntity implements Serializable, Comparable {
 	/** 新闻类别 ID */
 	private Integer newsCategoryId;
 	/** 新闻类型 */
@@ -15,7 +15,7 @@ public class NewsEntity implements Serializable {
 	/** ID */
 	private Integer id;
 	/** 新闻ID */
-	private Integer newsId;
+	private Long newsId;
 	/** 标题 */
 	private String title;
 	/** 新闻源 */
@@ -93,11 +93,11 @@ public class NewsEntity implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getNewsId() {
+	public Long getNewsId() {
 		return newsId;
 	}
 
-	public void setNewsId(Integer newsId) {
+	public void setNewsId(Long newsId) {
 		this.newsId = newsId;
 	}
 
@@ -245,4 +245,15 @@ public class NewsEntity implements Serializable {
 		this.source_url = source_url;
 	}
 
+	@Override
+	public int compareTo(Object o) {
+		NewsEntity n = (NewsEntity) o;
+		if (newsId < n.newsId) {
+			return 1;
+		} else if (newsId == n.newsId) {
+			return 0;
+		} else {
+			return -1;
+		}
+	}
 }

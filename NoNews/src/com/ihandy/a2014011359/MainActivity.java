@@ -127,6 +127,14 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		});
+		top_refresh.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				NewsFragment fragment = (NewsFragment)(fragments.get(columnSelectIndex));
+				fragment.updateData();
+			}
+		});
 		setChangeView();
 	}
 	/** 

@@ -3,6 +3,7 @@ package com.ihandy.a2014011359.tool;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //import com.ihandy.a2014011359.bean.NewsClassify;
@@ -37,7 +38,7 @@ public class NewsListFetcher {
                             Log.i("Json img", dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url"));
                             NewsEntity news = new NewsEntity();
                             news.setId(i);
-                            news.setNewsId(i);
+                            news.setNewsId(Long.valueOf(dataArray.getJSONObject(i).getString("news_id")));
                             news.setCollectStatus(false);
                             news.setCommentNum(0);
                             news.setInterestedStatus(true);
@@ -68,7 +69,24 @@ public class NewsListFetcher {
             }
         });
         t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Collections.sort(newsList);
         return newsList;
+    }
+
+    public static void updateNewsList(ArrayList<NewsEntity> currentList, String text, int channel_id) {
+        ArrayList<NewsEntity> newsList = getNewsList(text, channel_id);
+        long currentId = currentList.isEmpty() ? 0L : currentList.get(0).getNewsId();
+        for (NewsEntity e : newsList) {
+            if (e.getNewsId() > currentId) {
+                currentList.add(e);
+            }
+        }
+        Collections.sort(currentList);
     }
 
     /**
