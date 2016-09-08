@@ -150,7 +150,7 @@ public class MainActivity extends FragmentActivity {
 		int count =  userChannelList.size();
 		mColumnHorizontalScrollView.setParam(this, mScreenWidth, mRadioGroup_content, shade_left, shade_right, ll_more_columns, rl_column);
 		for(int i = 0; i< count; i++){
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mItemWidth , LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT , LayoutParams.WRAP_CONTENT);
 			params.leftMargin = 5;
 			params.rightMargin = 5;
 //			TextView localTextView = (TextView) mInflater.inflate(R.layout.column_radio_item, null);
@@ -163,6 +163,7 @@ public class MainActivity extends FragmentActivity {
 			columnTextView.setId(i);
 			columnTextView.setText(userChannelList.get(i).getName());
 			columnTextView.setTextColor(getResources().getColorStateList(R.color.top_category_scroll_text_color_day));
+			columnTextView.setSingleLine();
 			if(columnSelectIndex == i){
 				columnTextView.setSelected(true);
 			}

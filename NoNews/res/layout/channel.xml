@@ -4,7 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/subscribe_activity_bg" >
-    <include
+
+    <include
         android:id="@+id/title_bar"
         layout="@layout/title_bar" />
 
@@ -57,7 +58,7 @@
                 android:gravity="center"
                 android:horizontalSpacing="14dip"
                 android:listSelector="@android:color/transparent"
-                android:numColumns="4"
+                android:numColumns="3"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="14.0px" />
@@ -82,7 +83,7 @@
                 android:gravity="center"
                 android:horizontalSpacing="14dip"
                 android:listSelector="@android:color/transparent"
-                android:numColumns="4"
+                android:numColumns="3"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="14.0px" />

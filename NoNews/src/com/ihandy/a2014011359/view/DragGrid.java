@@ -62,7 +62,7 @@ public class DragGrid extends GridView {
 	/** item总量*/
 	private int itemTotalCount;
 	/** 一行的ITEM数量*/
-	private int nColumns = 4;
+	private int nColumns = 3;
 	/** 行数 */
 	private int nRows;
 	/** 剩余部分 */
@@ -348,7 +348,7 @@ public class DragGrid extends GridView {
 						if (dragPosition / nColumns == holdPosition / nColumns) {
 							to_x = - x_vlaue;
 							to_y = 0;
-						} else if (holdPosition % 4 == 0) {
+						} else if (holdPosition % nColumns == 0) {
 							to_x = 3 * x_vlaue;
 							to_y = - y_vlaue;
 						} else {
@@ -361,7 +361,7 @@ public class DragGrid extends GridView {
 						if (dragPosition / nColumns == holdPosition / nColumns) {
 							to_x = x_vlaue;
 							to_y = 0;
-						} else if((holdPosition + 1) % 4 == 0){
+						} else if((holdPosition + 1) % nColumns == 0){
 							to_x = -3 * x_vlaue;
 							to_y = y_vlaue;
 						}else{

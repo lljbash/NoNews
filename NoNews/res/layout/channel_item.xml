@@ -14,7 +14,7 @@
         android:background="@drawable/subscribe_item_bg"
         android:gravity="center"
         android:minHeight="38.0dip"
-        android:minWidth="72.0dip"
+        android:minWidth="100.0dip"
         android:textColor="@color/subscribe_item_text_color"
         android:textSize="14.0sp" />
     <!-- android:layout_margin="5dip" -->

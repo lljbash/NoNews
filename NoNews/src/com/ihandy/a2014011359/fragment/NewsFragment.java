@@ -2,16 +2,13 @@ package com.ihandy.a2014011359.fragment;
 
 import java.util.ArrayList;
 
-import org.w3c.dom.Text;
-
 import com.ihandy.a2014011359.CityListActivity;
 import com.ihandy.a2014011359.DetailsActivity;
 import com.ihandy.a2014011359.R;
 import com.ihandy.a2014011359.adapter.NewsAdapter;
 import com.ihandy.a2014011359.bean.NewsEntity;
-import com.ihandy.a2014011359.tool.Constants;
+import com.ihandy.a2014011359.tool.NewsListFetcher;
 import com.ihandy.a2014011359.view.HeadListView;
-import com.ihandy.a2014011359.view.TopToastView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -104,7 +100,7 @@ public class NewsFragment extends Fragment {
 	}
 
 	private void initData() {
-		newsList = Constants.getNewsList();
+		newsList = NewsListFetcher.getNewsList(text, channel_id);
 	}
 	
 	Handler handler = new Handler() {
@@ -117,7 +113,7 @@ public class NewsFragment extends Fragment {
 				if(mAdapter == null){
 					mAdapter = new NewsAdapter(activity, newsList);
 					//判断是不是城市的频道
-					if(channel_id == Constants.CHANNEL_CITY){
+					if(channel_id == NewsListFetcher.CHANNEL_CITY){
 						//是城市频道
 						mAdapter.setCityChannel(true);
 						initCityChannel();
@@ -132,7 +128,7 @@ public class NewsFragment extends Fragment {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 						Intent intent = new Intent(activity, DetailsActivity.class);
-						if(channel_id == Constants.CHANNEL_CITY){
+						if(channel_id == NewsListFetcher.CHANNEL_CITY){
 							if(position != 0){
 								intent.putExtra("news", mAdapter.getItem(position - 1));
 								startActivity(intent);

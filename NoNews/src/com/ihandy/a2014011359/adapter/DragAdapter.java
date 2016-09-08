@@ -95,16 +95,16 @@ public class DragAdapter extends BaseAdapter {
 	}
 
 	/** 拖动变更频道排序 */
-	public void exchange(int dragPostion, int dropPostion) {
-		holdPosition = dropPostion;
-		ChannelItem dragItem = getItem(dragPostion);
-		Log.d(TAG, "startPostion=" + dragPostion + ";endPosition=" + dropPostion);
-		if (dragPostion < dropPostion) {
-			channelList.add(dropPostion + 1, dragItem);
-			channelList.remove(dragPostion);
+	public void exchange(int dragPosition, int dropPosition) {
+		holdPosition = dropPosition;
+		ChannelItem dragItem = getItem(dragPosition);
+		Log.d(TAG, "startPosition=" + dragPosition + ";endPosition=" + dropPosition);
+		if (dragPosition < dropPosition) {
+			channelList.add(dropPosition + 1, dragItem);
+			channelList.remove(dragPosition);
 		} else {
-			channelList.add(dropPostion, dragItem);
-			channelList.remove(dragPostion + 1);
+			channelList.add(dropPosition, dragItem);
+			channelList.remove(dragPosition + 1);
 		}
 		isChanged = true;
 		isListChanged = true;
@@ -112,7 +112,7 @@ public class DragAdapter extends BaseAdapter {
 	}
 	
 	/** 获取频道列表 */
-	public List<ChannelItem> getChannnelLst() {
+	public List<ChannelItem> getChannelList() {
 		return channelList;
 	}
 

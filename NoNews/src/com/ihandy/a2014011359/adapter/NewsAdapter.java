@@ -3,22 +3,18 @@ package com.ihandy.a2014011359.adapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.ihandy.a2014011359.R;
 import com.ihandy.a2014011359.bean.NewsEntity;
-import com.ihandy.a2014011359.tool.Constants;
+import com.ihandy.a2014011359.tool.NewsListFetcher;
 import com.ihandy.a2014011359.tool.DateTools;
 import com.ihandy.a2014011359.tool.Options;
 import com.ihandy.a2014011359.view.HeadListView;
 import com.ihandy.a2014011359.view.HeadListView.HeaderAdapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,7 +25,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -264,15 +259,15 @@ public class NewsAdapter extends BaseAdapter implements SectionIndexer, HeaderAd
 			return R.drawable.ic_mark_favor;
 		}
 		switch (mark) {
-		case Constants.mark_recom:
+		case NewsListFetcher.mark_recom:
 			return R.drawable.ic_mark_recommend;
-		case Constants.mark_hot:
+		case NewsListFetcher.mark_hot:
 			return R.drawable.ic_mark_hot;
-		case Constants.mark_frist:
+		case NewsListFetcher.mark_frist:
 			return R.drawable.ic_mark_first;
-		case Constants.mark_exclusive:
+		case NewsListFetcher.mark_exclusive:
 			return R.drawable.ic_mark_exclusive;
-		case Constants.mark_favor:
+		case NewsListFetcher.mark_favor:
 			return R.drawable.ic_mark_favor;
 		default:
 			break;

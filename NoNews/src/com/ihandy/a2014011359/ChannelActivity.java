@@ -248,7 +248,7 @@ public class ChannelActivity extends BaseActivity implements OnItemClickListener
 	/** 退出时候保存选择后数据库的设置  */
 	private void saveChannel() {
 		ChannelManage.getManage(AppApplication.getApp().getSQLHelper()).deleteAllChannel();
-		ChannelManage.getManage(AppApplication.getApp().getSQLHelper()).saveUserChannel(userAdapter.getChannnelLst());
+		ChannelManage.getManage(AppApplication.getApp().getSQLHelper()).saveUserChannel(userAdapter.getChannelList());
 		ChannelManage.getManage(AppApplication.getApp().getSQLHelper()).saveOtherChannel(otherAdapter.getChannnelLst());
 	}
 	

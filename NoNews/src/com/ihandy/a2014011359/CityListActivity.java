@@ -2,19 +2,17 @@ package com.ihandy.a2014011359;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.ihandy.a2014011359.adapter.CityAdapter;
 import com.ihandy.a2014011359.base.BaseActivity;
 import com.ihandy.a2014011359.bean.CityEntity;
-import com.ihandy.a2014011359.tool.Constants;
+import com.ihandy.a2014011359.tool.NewsListFetcher;
 import com.ihandy.a2014011359.view.HeadListView;
 
 public class CityListActivity extends BaseActivity {
@@ -38,7 +36,7 @@ public class CityListActivity extends BaseActivity {
 	
 	private void initData() {
 		title.setText("当前城市-杭州");
-		cityList = Constants.getCityList();
+		cityList = NewsListFetcher.getCityList();
 		mAdapter = new CityAdapter(this, cityList);
 		mListView.setAdapter(mAdapter);
 		mListView.setOnScrollListener(mAdapter);
