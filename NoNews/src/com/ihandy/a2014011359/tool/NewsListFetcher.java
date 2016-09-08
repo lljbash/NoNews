@@ -3,9 +3,9 @@ package com.ihandy.a2014011359.tool;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import com.ihandy.a2014011359.bean.CityEntity;
 //import com.ihandy.a2014011359.bean.NewsClassify;
 import com.ihandy.a2014011359.bean.NewsEntity;
 
@@ -38,7 +38,11 @@ public class NewsListFetcher {
                             Log.i("Json img", dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url"));
                             NewsEntity news = new NewsEntity();
                             news.setId(i);
-                            news.setNewsId(i);
+                            try {
+                                news.setNewsId(Long.valueOf(dataArray.getJSONObject(i).getString("news_id")));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
                             news.setCollectStatus(false);
                             news.setCommentNum(0);
                             news.setInterestedStatus(true);
@@ -46,14 +50,30 @@ public class NewsListFetcher {
                             news.setReadStatus(false);
                             news.setNewsCategory(text);
                             news.setNewsCategoryId(channel_id);
-                            news.setSource(dataArray.getJSONObject(i).getString("origin"));
-                            news.setTitle(dataArray.getJSONObject(i).getString("title"));
-                            news.setSource_url(dataArray.getJSONObject(i).getJSONObject("source").getString("url"));
-                            List<String> url_list = new ArrayList<String>();
-                            String url = dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url");
-                            news.setPicOne(url);
-                            url_list.add(url);
-                            news.setPicList(url_list);
+                            try {
+                                news.setSource(dataArray.getJSONObject(i).getString("origin"));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                news.setTitle(dataArray.getJSONObject(i).getString("title"));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                news.setSource_url(dataArray.getJSONObject(i).getJSONObject("source").getString("url"));
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                List<String> url_list = new ArrayList<String>();
+                                String url = dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url");
+                                news.setPicOne(url);
+                                url_list.add(url);
+                                news.setPicList(url_list);
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
                             news.setPublishTime((long) i);
                             news.setMark(5);
                             news.setIsLarge(false);
@@ -69,7 +89,24 @@ public class NewsListFetcher {
             }
         });
         t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Collections.sort(newsList);
         return newsList;
+    }
+
+    public static void updateNewsList(ArrayList<NewsEntity> currentList, String text, int channel_id) {
+        ArrayList<NewsEntity> newsList = getNewsList(text, channel_id);
+        long currentId = currentList.isEmpty() ? 0L : currentList.get(0).getNewsId();
+        for (NewsEntity e : newsList) {
+            if (e.getNewsId() > currentId) {
+                currentList.add(e);
+            }
+        }
+        Collections.sort(currentList);
     }
 
     /**
@@ -93,40 +130,4 @@ public class NewsListFetcher {
      */
     public final static int mark_favor = 4;
 
-    /*
-     * 获取城市列表
-     */
-    public static ArrayList<CityEntity> getCityList() {
-        ArrayList<CityEntity> cityList = new ArrayList<CityEntity>();
-        CityEntity city1 = new CityEntity(1, "安吉", 'A');
-        CityEntity city2 = new CityEntity(2, "北京", 'B');
-        CityEntity city3 = new CityEntity(3, "长春", 'C');
-        CityEntity city4 = new CityEntity(4, "长沙", 'C');
-        CityEntity city5 = new CityEntity(5, "大连", 'D');
-        CityEntity city6 = new CityEntity(6, "哈尔滨", 'H');
-        CityEntity city7 = new CityEntity(7, "杭州", 'H');
-        CityEntity city8 = new CityEntity(8, "金沙江", 'J');
-        CityEntity city9 = new CityEntity(9, "江门", 'J');
-        CityEntity city10 = new CityEntity(10, "山东", 'S');
-        CityEntity city11 = new CityEntity(11, "三亚", 'S');
-        CityEntity city12 = new CityEntity(12, "义乌", 'Y');
-        CityEntity city13 = new CityEntity(13, "舟山", 'Z');
-        cityList.add(city1);
-        cityList.add(city2);
-        cityList.add(city3);
-        cityList.add(city4);
-        cityList.add(city5);
-        cityList.add(city6);
-        cityList.add(city7);
-        cityList.add(city8);
-        cityList.add(city9);
-        cityList.add(city10);
-        cityList.add(city11);
-        cityList.add(city12);
-        cityList.add(city13);
-        return cityList;
-    }
-
-    /* 频道中区域 如杭州 对应的栏目ID */
-    public final static int CHANNEL_CITY = 3;
 }
