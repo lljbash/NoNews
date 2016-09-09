@@ -1,14 +1,5 @@
 package com.ihandy.a2014011359.fragment;
 
-import java.util.ArrayList;
-
-import com.ihandy.a2014011359.DetailsActivity;
-import com.ihandy.a2014011359.R;
-import com.ihandy.a2014011359.adapter.NewsAdapter;
-import com.ihandy.a2014011359.bean.NewsEntity;
-import com.ihandy.a2014011359.tool.NewsListFetcher;
-import com.ihandy.a2014011359.view.HeadListView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,11 +16,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class NewsFragment extends Fragment {
+import com.ihandy.a2014011359.DetailsActivity;
+import com.ihandy.a2014011359.R;
+import com.ihandy.a2014011359.adapter.NewsAdapter;
+import com.ihandy.a2014011359.bean.NewsEntity;
+import com.ihandy.a2014011359.tool.NewsListFetcher;
+import com.ihandy.a2014011359.view.XListView;
+
+import java.util.ArrayList;
+
+import static com.ihandy.a2014011359.tool.DateTools.getTime;
+
+public class NewsFragment extends Fragment implements XListView.IXListViewListener {
     private final static String TAG = "NewsFragment";
     Activity activity;
     ArrayList<NewsEntity> newsList = new ArrayList<NewsEntity>();
-    HeadListView mListView;
+    XListView mListView;
     NewsAdapter mAdapter;
     String text;
     int channel_id;
@@ -91,7 +93,11 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.news_fragment, null);
-        mListView = (HeadListView) view.findViewById(R.id.mListView);
+        mListView = (XListView) view.findViewById(R.id.mListView);
+        mListView.setPullRefreshEnable(true);
+        mListView.setPullLoadEnable(true);
+        mListView.setXListViewListener(this);
+        mListView.setRefreshTime("从未");
         TextView item_textview = (TextView) view.findViewById(R.id.item_textview);
         detail_loading = (ImageView) view.findViewById(R.id.detail_loading);
         //Toast提示框
@@ -140,7 +146,7 @@ public class NewsFragment extends Fragment {
                     mAdapter = new NewsAdapter(activity, newsList);
                     mListView.setAdapter(mAdapter);
                     mListView.setOnScrollListener(mAdapter);
-                    mListView.setPinnedHeaderView(LayoutInflater.from(activity).inflate(R.layout.list_item_section, mListView, false));
+
                     mListView.setOnItemClickListener(new OnItemClickListener() {
 
                         @Override
@@ -199,5 +205,27 @@ public class NewsFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onDestroy();
         Log.d(TAG, "channel_id = " + channel_id);
+    }
+
+    private void onLoad() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mListView.setRefreshTime("刚刚");
+    }
+
+    @Override
+    public void onRefresh() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateData();
+                onLoad();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onLoadMore() {
+        Log.i("load", "load");
     }
 }

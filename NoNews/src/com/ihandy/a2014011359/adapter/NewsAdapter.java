@@ -335,14 +335,7 @@ public class NewsAdapter extends BaseAdapter implements SectionIndexer, HeaderAd
 	
 	/* 是不是第一个ITEM，  true：是   false :不是*/
 	public boolean isfirst = true;
-	
-	/*
-	 * 设置是不是特殊的频道（城市频道）
-	 */
-	public void setCityChannel(boolean iscity){
-		isCityChannel = iscity;
-	}
-	
+
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		

@@ -19,7 +19,7 @@
         android:layout_centerInParent="true"
         android:src="@drawable/detail_loading" />
 
-    <com.ihandy.a2014011359.view.HeadListView
+    <com.ihandy.a2014011359.view.XListView
         android:id="@+id/mListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
