@@ -126,29 +126,29 @@ public class DragGrid extends GridView {
 			int x = (int) ev.getX();
 			int y = (int) ev.getY();
 			switch (ev.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				downX = (int) ev.getX();
-				windowX = (int) ev.getX();
-				downY = (int) ev.getY();
-				windowY = (int) ev.getY();
-				break;
-			case MotionEvent.ACTION_MOVE:
-				onDrag(x, y ,(int) ev.getRawX() , (int) ev.getRawY());
-				if (!isMoving){
-					OnMove(x, y);
-				}
-				if (pointToPosition(x, y) != AdapterView.INVALID_POSITION){
+				case MotionEvent.ACTION_DOWN:
+					downX = (int) ev.getX();
+					windowX = (int) ev.getX();
+					downY = (int) ev.getY();
+					windowY = (int) ev.getY();
 					break;
-				}
-				break;
-			case MotionEvent.ACTION_UP:
-				stopDrag();
-				onDrop(x, y);
-				requestDisallowInterceptTouchEvent(false);
-				break;
+				case MotionEvent.ACTION_MOVE:
+					onDrag(x, y, (int) ev.getRawX(), (int) ev.getRawY());
+					if (!isMoving) {
+						OnMove(x, y);
+					}
+					if (pointToPosition(x, y) != AdapterView.INVALID_POSITION) {
+						break;
+					}
+					break;
+				case MotionEvent.ACTION_UP:
+					stopDrag();
+					onDrop(x, y);
+					requestDisallowInterceptTouchEvent(false);
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 		return super.onTouchEvent(ev);
@@ -196,9 +196,6 @@ public class DragGrid extends GridView {
 
 				startPosition = position;// 第一次点击的postion
 				dragPosition = position;
-				if (startPosition <= 1) {
-					return false;
-				}
 				ViewGroup dragViewGroup = (ViewGroup) getChildAt(dragPosition - getFirstVisiblePosition());
 				TextView dragTextView = (TextView)dragViewGroup.findViewById(R.id.text_item);
 				dragTextView.setSelected(true);
@@ -302,8 +299,7 @@ public class DragGrid extends GridView {
 	public void OnMove(int x, int y) {
 		// 拖动的VIEW下方的POSTION
 		int dPosition = pointToPosition(x, y);
-		// 判断下方的POSTION是否是最开始2个不能拖动的
-		if (dPosition > 1) {
+		if (true) {
 	        if ((dPosition == -1) || (dPosition == dragPosition)){
 	        	return;
 	        }

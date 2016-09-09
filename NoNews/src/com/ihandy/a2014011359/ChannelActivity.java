@@ -92,8 +92,7 @@ public class ChannelActivity extends BaseActivity implements OnItemClickListener
 		}
 		switch (parent.getId()) {
 		case R.id.userGridView:
-			//position为 0，1 的不可以进行任何操作
-			if (position != 0 && position != 1) {
+			if (true) {
 				final ImageView moveImageView = getView(view);
 				if (moveImageView != null) {
 					TextView newTextView = (TextView) view.findViewById(R.id.text_item);
