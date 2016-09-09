@@ -50,7 +50,8 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:scaleType="centerInside"
-        android:src="@drawable/right_drawer" />
+        android:src="@drawable/right_drawer"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/top_right_count"
