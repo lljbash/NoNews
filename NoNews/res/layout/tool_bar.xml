@@ -27,7 +27,7 @@
                 android:id="@+id/action_favor"
                 android:clickable="true"
                 style="@style/toolbar_action"
-                android:src="@drawable/ic_action_favor" />
+                android:src="@drawable/ic_action_favor_normal" />
         </FrameLayout>
 
         <FrameLayout
@@ -36,10 +36,10 @@
             android:layout_weight="1.0" >
 
             <ImageView
-                android:id="@+id/action_share"
+                android:id="@+id/action_repost"
                 android:clickable="true"
                 style="@style/toolbar_action"
-                android:src="@drawable/ic_action_share" />
+                android:src="@drawable/ic_action_repost" />
         </FrameLayout>
     </LinearLayout>
 

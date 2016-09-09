@@ -29,13 +29,26 @@
         </activity>
         <activity android:name="com.ihandy.a2014011359.DetailsActivity" >
         </activity>
-        <activity android:name="com.ihandy.a2014011359.CityListActivity" >
-        </activity>
         <activity android:name="com.ihandy.a2014011359.SettingsActivity" >
         </activity>
         <activity android:name="com.ihandy.a2014011359.ImageShowActivity" >
         </activity>
         <activity android:name="com.ihandy.a2014011359.FavoriteActivity" >
+        </activity>
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent你的AppId" />
+            </intent-filter>
         </activity>
     </application>
 
