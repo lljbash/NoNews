@@ -22,8 +22,6 @@ import com.ihandy.a2014011359.ChannelActivity;
 public class DrawerView implements OnClickListener{
 	private final Activity activity;
 	SlidingMenu localSlidingMenu;
-	private SwitchButton night_mode_btn;
-	private TextView night_mode_text;
 	private RelativeLayout setting_btn;
 	private RelativeLayout about_btn;
 	private RelativeLayout favorite_btn;
@@ -65,27 +63,6 @@ public class DrawerView implements OnClickListener{
 	}
 
 	private void initView() {
-		night_mode_btn = (SwitchButton)localSlidingMenu.findViewById(R.id.night_mode_btn);
-		night_mode_text = (TextView)localSlidingMenu.findViewById(R.id.night_mode_text);
-		night_mode_btn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if(isChecked){
-					night_mode_text.setText(activity.getResources().getString(R.string.action_night_mode));
-				}else{
-					night_mode_text.setText(activity.getResources().getString(R.string.action_day_mode));
-				}
-			}
-		});
-		night_mode_btn.setChecked(false);
-		if(night_mode_btn.isChecked()){
-			night_mode_text.setText(activity.getResources().getString(R.string.action_night_mode));
-		}else{
-			night_mode_text.setText(activity.getResources().getString(R.string.action_day_mode));
-		}
-
 		setting_btn =(RelativeLayout)localSlidingMenu.findViewById(R.id.setting_btn);
 		setting_btn.setOnClickListener(this);
 		about_btn =(RelativeLayout)localSlidingMenu.findViewById(R.id.about_btn);

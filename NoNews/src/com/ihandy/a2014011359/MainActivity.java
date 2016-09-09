@@ -2,6 +2,7 @@ package com.ihandy.a2014011359;
 
 import java.util.ArrayList;
 
+import com.ihandy.a2014011359.bean.FavoriteManager;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.ihandy.a2014011359.adapter.NewsFragmentPagerAdapter;
 import com.ihandy.a2014011359.app.AppApplication;
@@ -77,6 +78,7 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.main);
 		mScreenWidth = BaseTools.getWindowsWidth(this);
 		mItemWidth = mScreenWidth / 7;// 一个Item宽度为屏幕的1/7
+		FavoriteManager.init(this);
 		initView();
 		initSlidingMenu();
 	}
@@ -220,6 +222,7 @@ public class MainActivity extends FragmentActivity {
 			}
 			checkView.setSelected(is_checked);
 		}
+		((NewsFragment)fragments.get(tab_position)).updateData();
 	}
 	/** 
 	 *  初始化Fragment
@@ -280,7 +283,7 @@ public class MainActivity extends FragmentActivity {
 				side_drawer.showContent();
 			}else {
 				if ((System.currentTimeMillis() - mExitTime) > 2000) {
-					Toast.makeText(this, "在按一次退出",
+					Toast.makeText(this, "再按一次退出",
 							Toast.LENGTH_SHORT).show();
 					mExitTime = System.currentTimeMillis();
 				} else {

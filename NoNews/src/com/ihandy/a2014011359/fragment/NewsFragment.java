@@ -20,6 +20,7 @@ package com.ihandy.a2014011359.fragment;
         import com.ihandy.a2014011359.DetailsActivity;
         import com.ihandy.a2014011359.R;
         import com.ihandy.a2014011359.adapter.NewsAdapter;
+        import com.ihandy.a2014011359.bean.FavoriteManager;
         import com.ihandy.a2014011359.bean.NewsEntity;
         import com.ihandy.a2014011359.tool.NewsListFetcher;
         import com.ihandy.a2014011359.tool.NewsListFileManager;
@@ -156,6 +157,8 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
         moreThread.start();
     }
 
+    NewsEntity detailedNews;
+
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -176,8 +179,9 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
                             Intent intent = new Intent(activity, DetailsActivity.class);
-                            intent.putExtra("news", mAdapter.getItem(position));
-                            startActivity(intent);
+                            detailedNews = mAdapter.getItem(position - 1);
+                            intent.putExtra("news", detailedNews);
+                            startActivityForResult(intent, 1);
                             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
@@ -256,5 +260,13 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
                 onLoad();
             }
         }, 500);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("end", "code = " + resultCode);
+        detailedNews.setCollectStatus(FavoriteManager.query(detailedNews));
+        mAdapter.notifyDataSetChanged();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

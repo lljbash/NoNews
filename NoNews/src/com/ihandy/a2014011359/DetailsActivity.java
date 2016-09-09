@@ -1,10 +1,7 @@
 package com.ihandy.a2014011359;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,20 +13,23 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ihandy.a2014011359.base.BaseActivity;
+import com.ihandy.a2014011359.bean.FavoriteManager;
 import com.ihandy.a2014011359.bean.NewsEntity;
+import com.ihandy.a2014011359.fragment.NewsFragment;
 import com.ihandy.a2014011359.service.NewsDetailsService;
-import com.ihandy.a2014011359.tool.BaseTools;
-import com.ihandy.a2014011359.tool.DataTools;
 import com.ihandy.a2014011359.tool.DateTools;
+
+import java.util.ArrayList;
 
 @SuppressLint("JavascriptInterface")
 public class DetailsActivity extends BaseActivity {
@@ -41,7 +41,7 @@ public class DetailsActivity extends BaseActivity {
 	private String news_source;
 	private String news_date;
 	private NewsEntity news;
-	private TextView action_comment_count;
+	private ImageView action_favor;
 	WebView webView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +88,38 @@ public class DetailsActivity extends BaseActivity {
 		progressBar = (ProgressBar) findViewById(R.id.ss_htmlprogessbar);
 		customview_layout = (FrameLayout) findViewById(R.id.customview_layout);
 		//底部栏目
-		action_comment_count = (TextView) findViewById(R.id.action_comment_count);
-		
+		action_favor = (ImageView) findViewById(R.id.action_favor);
+
 		progressBar.setVisibility(View.VISIBLE);
 		title.setTextSize(13);
 		title.setVisibility(View.VISIBLE);
 		title.setText(news_url);
-		action_comment_count.setText(String.valueOf(0));
+		Activity activity = this;
+
+		action_favor.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (news.getCollectStatus()) {
+					FavoriteManager.remove(news);
+					news.setCollectStatus(false);
+					Toast.makeText(activity, "remove favor", Toast.LENGTH_SHORT).show();
+				}
+				else {
+					FavoriteManager.add(news);
+					news.setCollectStatus(true);
+					Toast.makeText(activity, "add favor", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
+		int resultCode = news.getCollectStatus() ? 1 : 0;
+		Log.i("on exit", String.valueOf(resultCode));
+		setResult(0);
+		finish();
 		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 	}
 	
@@ -145,7 +165,7 @@ public class DetailsActivity extends BaseActivity {
 			ArrayList<String> imgsUrl = new ArrayList<String>();
 			for (String s : imgs) {
 				imgsUrl.add(s);
-				Log.i("图片的URL>>>>>>>>>>>>>>>>>>>>>>>", s);
+				Log.i("图片的URL>>", s);
 			}
 			Intent intent = new Intent();
 			intent.putStringArrayListExtra("infos", imgsUrl);

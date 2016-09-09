@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 //import com.ihandy.a2014011359.bean.NewsClassify;
+import com.ihandy.a2014011359.bean.FavoriteManager;
 import com.ihandy.a2014011359.bean.NewsEntity;
 
 import org.json.JSONArray;
@@ -45,7 +46,7 @@ public class NewsListFetcher {
                             } catch (org.json.JSONException e) {
                                 e.printStackTrace();
                             }
-                            news.setCollectStatus(false);
+                            news.setCollectStatus(FavoriteManager.query(news));
                             news.setNewsCategory(text);
                             news.setNewsCategoryId(channel_id);
                             try {
