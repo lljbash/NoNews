@@ -23,13 +23,21 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.ImageView;
+import android.view.View.OnClickListener;
+import android.view.View;
 import com.ihandy.a2014011359.base.BaseActivity;
 import com.ihandy.a2014011359.bean.NewsEntity;
 import com.ihandy.a2014011359.service.NewsDetailsService;
 import com.ihandy.a2014011359.tool.BaseTools;
 import com.ihandy.a2014011359.tool.DataTools;
 import com.ihandy.a2014011359.tool.DateTools;
+import com.tencent.connect.share.QQShare;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
+import org.json.JSONObject;
 
 @SuppressLint("JavascriptInterface")
 public class DetailsActivity extends BaseActivity {
@@ -40,9 +48,34 @@ public class DetailsActivity extends BaseActivity {
 	private String news_title;
 	private String news_source;
 	private String news_date;
+	private String img_source;
 	private NewsEntity news;
 	private TextView action_comment_count;
+	private ImageView action_repost;
 	WebView webView;
+	private Tencent mTencent;
+
+	private class BaseUiListener implements IUiListener {
+		public void onComplete(Object response) {
+			Log.d("---","share");
+			try {
+				Log.d("---share","success");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				Log.d("---share","error");
+				e.printStackTrace();
+			}
+
+		}
+		@Override
+		public void onError(UiError e) {
+			Log.d("---:", "onError code:" + e.errorCode);
+		}
+		@Override
+		public void onCancel() {
+			Log.d("---", "onCancel");
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -52,6 +85,7 @@ public class DetailsActivity extends BaseActivity {
 		getData();
 		initView();
 		initWebView();
+		mTencent = Tencent.createInstance(String.valueOf(1103432372), this.getApplicationContext());
 	}
 	/* 获取传递过来的数据 */
 	private void getData() {
@@ -59,6 +93,7 @@ public class DetailsActivity extends BaseActivity {
 		news_url = news.getSource_url();
 		news_title = news.getTitle();
 		news_source = news.getSource();
+		img_source = news.getPicOne();
 		news_date = DateTools.getNewsDetailsDate(String.valueOf(0));
 	}
 
@@ -95,6 +130,26 @@ public class DetailsActivity extends BaseActivity {
 		title.setVisibility(View.VISIBLE);
 		title.setText(news_url);
 		action_comment_count.setText(String.valueOf(0));
+		action_repost = (ImageView) findViewById(R.id.action_repost);
+		action_repost.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final Bundle params = new Bundle();
+				params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+				params.putString(QQShare.SHARE_TO_QQ_TITLE, news_title);
+				//params.putString(QQShare.SHARE_TO_QQ_SUMMARY,  "要分享的摘要");
+				params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, news_url);
+				params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL,img_source);
+				params.putString(QQShare.SHARE_TO_QQ_APP_NAME,  "app");
+				mTencent.shareToQQ(DetailsActivity.this, params, new BaseUiListener());
+			}
+		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		mTencent.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -145,7 +200,7 @@ public class DetailsActivity extends BaseActivity {
 			ArrayList<String> imgsUrl = new ArrayList<String>();
 			for (String s : imgs) {
 				imgsUrl.add(s);
-				Log.i("图片的URL>>>>>>>>>>>>>>>>>>>>>>>", s);
+				//Log.i("图片的URL>>>>>>>>>>>>>>>>>>>>>>>", s);
 			}
 			Intent intent = new Intent();
 			intent.putStringArrayListExtra("infos", imgsUrl);
