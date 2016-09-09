@@ -102,12 +102,29 @@ public class NewsFragment extends Fragment {
     }
 
     private void initData() {
-        newsList = NewsListFetcher.getNewsList(text, channel_id);
+        NewsListFetcher.updateNewsList(newsList, text, channel_id);
+    }
+
+    boolean updating = false;
+
+    private synchronized void setUpdating(boolean updating) {
+        this.updating = updating;
     }
 
     public void updateData() {
-        NewsListFetcher.updateNewsList(newsList, text, channel_id);
-        handler.obtainMessage(SET_NEWSLIST).sendToTarget();
+        if (updating) {
+            return;
+        }
+        Thread updateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                setUpdating(true);
+                newsList = NewsListFetcher.getNewsList(text, channel_id);
+                handler.obtainMessage(SET_NEWSLIST).sendToTarget();
+                setUpdating(false);
+            }
+        });
+        updateThread.start();
     }
 
     Handler handler = new Handler() {
