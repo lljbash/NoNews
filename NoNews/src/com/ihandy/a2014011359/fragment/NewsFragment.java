@@ -1,31 +1,31 @@
 package com.ihandy.a2014011359.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+        import android.app.Activity;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.os.Message;
+        import android.support.v4.app.Fragment;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.AbsListView;
+        import android.widget.AdapterView;
+        import android.widget.AdapterView.OnItemClickListener;
+        import android.widget.ImageView;
+        import android.widget.RelativeLayout;
+        import android.widget.TextView;
 
-import com.ihandy.a2014011359.DetailsActivity;
-import com.ihandy.a2014011359.R;
-import com.ihandy.a2014011359.adapter.NewsAdapter;
-import com.ihandy.a2014011359.bean.NewsEntity;
-import com.ihandy.a2014011359.tool.NewsListFetcher;
-import com.ihandy.a2014011359.view.XListView;
+        import com.ihandy.a2014011359.DetailsActivity;
+        import com.ihandy.a2014011359.R;
+        import com.ihandy.a2014011359.adapter.NewsAdapter;
+        import com.ihandy.a2014011359.bean.NewsEntity;
+        import com.ihandy.a2014011359.tool.NewsListFetcher;
+        import com.ihandy.a2014011359.tool.NewsListFileManager;
+        import com.ihandy.a2014011359.view.XListView;
 
-import java.util.ArrayList;
-
-import static com.ihandy.a2014011359.tool.DateTools.getTime;
+        import java.util.ArrayList;
 
 public class NewsFragment extends Fragment implements XListView.IXListViewListener {
     private final static String TAG = "NewsFragment";
@@ -37,6 +37,7 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
     int channel_id;
     ImageView detail_loading;
     public final static int SET_NEWSLIST = 0;
+    public final static int UPDATE_NEWSLIST = 1;
     //Toast提示框
     private RelativeLayout notify_view;
     private TextView notify_view_text;
@@ -108,14 +109,11 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
     }
 
     private void initData() {
-        NewsListFetcher.updateNewsList(newsList, text, channel_id);
+        newsList = NewsListFileManager.loadNewsList(activity, text + ".dat");
+        updateData();
     }
 
-    boolean updating = false;
-
-    private synchronized void setUpdating(boolean updating) {
-        this.updating = updating;
-    }
+    volatile boolean updating = false;
 
     public void updateData() {
         if (updating) {
@@ -124,13 +122,38 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
         Thread updateThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                setUpdating(true);
-                newsList = NewsListFetcher.getNewsList(text, channel_id);
-                handler.obtainMessage(SET_NEWSLIST).sendToTarget();
-                setUpdating(false);
+                updating = true;
+                ArrayList<NewsEntity> freshList = NewsListFetcher.getNewsList(text, channel_id, -1);
+                if (!freshList.isEmpty()) {
+                    newsList = freshList;
+                    handler.obtainMessage(SET_NEWSLIST).sendToTarget();
+                    NewsListFileManager.saveNewsList(activity, text + ".dat", newsList);
+                }
+                updating = false;
             }
         });
         updateThread.start();
+    }
+
+    volatile boolean moring = false;
+
+    public void moreData() {
+        if (moring) {
+            return;
+        }
+        Thread moreThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                moring = true;
+                NewsListFetcher.moreNewsList(newsList, text, channel_id);
+                if (!newsList.isEmpty()) {
+                    handler.obtainMessage(UPDATE_NEWSLIST).sendToTarget();
+                    NewsListFileManager.saveNewsList(activity, text + ".dat", newsList);
+                }
+                moring = false;
+            }
+        });
+        moreThread.start();
     }
 
     Handler handler = new Handler() {
@@ -158,10 +181,10 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
                             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         }
                     });
-                    if (channel_id == 1) {
-                        initNotify();
-                    }
                     break;
+                case UPDATE_NEWSLIST:
+                    mAdapter.setNewsList(newsList);
+                    mAdapter.notifyDataSetChanged();
                 default:
                     break;
             }
@@ -226,6 +249,12 @@ public class NewsFragment extends Fragment implements XListView.IXListViewListen
 
     @Override
     public void onLoadMore() {
-        Log.i("load", "load");
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                moreData();
+                onLoad();
+            }
+        }, 500);
     }
 }

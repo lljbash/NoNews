@@ -9,7 +9,6 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ihandy.a2014011359.R;
@@ -33,6 +32,10 @@ public class NewsAdapter extends BaseAdapter implements OnScrollListener {
         this.newsList = newsList;
         inflater = LayoutInflater.from(activity);
         options = Options.getListOptions();
+    }
+
+    public void setNewsList(ArrayList<NewsEntity> newsList) {
+        this.newsList = newsList;
     }
 
     @Override

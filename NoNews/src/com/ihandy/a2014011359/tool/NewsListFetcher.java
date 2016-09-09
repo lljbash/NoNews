@@ -17,15 +17,18 @@ public class NewsListFetcher {
     /*
      * 获取新闻列表
      */
-    public static ArrayList<NewsEntity> getNewsList(String text, int channel_id) {
+    public static ArrayList<NewsEntity> getNewsList(String text, int channel_id, long news_id) {
         ArrayList<NewsEntity> newsList = new ArrayList<NewsEntity>();
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Log.d("Thread_id", String.valueOf(channel_id));
-                    HttpRequest request = HttpRequest.get(
-                            "http://assignment.crazz.cn/news/query?locale=en&category=" + text);
+                    String str = "http://assignment.crazz.cn/news/query?locale=en&category=" + text;
+                    if (news_id > 0L) {
+                        str += "&max_news_id=" + news_id;
+                    }
+                    HttpRequest request = HttpRequest.get(str);
                     String body = request.body();
                     Log.i("QueryEnd", text);
                     Log.i("QueryEnd", body);
@@ -90,11 +93,14 @@ public class NewsListFetcher {
         return newsList;
     }
 
-    public static void updateNewsList(ArrayList<NewsEntity> currentList, String text, int channel_id) {
-        ArrayList<NewsEntity> newsList = getNewsList(text, channel_id);
-        long currentId = currentList.isEmpty() ? 0L : currentList.get(0).getNewsId();
+    public static void moreNewsList(ArrayList<NewsEntity> currentList, String text, int channel_id) {
+        long news_id = -1;
+        if (!currentList.isEmpty()) {
+            news_id = currentList.get(currentList.size() - 1).getNewsId();
+        }
+        ArrayList<NewsEntity> newsList = getNewsList(text, channel_id, news_id);
         for (NewsEntity e : newsList) {
-            if (e.getNewsId() > currentId) {
+            if (news_id == -1 || e.getNewsId() < news_id) {
                 currentList.add(e);
             }
         }
