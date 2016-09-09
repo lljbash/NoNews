@@ -37,17 +37,12 @@ public class NewsListFetcher {
                         for (int i = 0; i < dataArray.length(); i++) {
                             Log.i("Json img", dataArray.getJSONObject(i).optJSONArray("imgs").getJSONObject(0).getString("url"));
                             NewsEntity news = new NewsEntity();
-                            news.setId(i);
                             try {
                                 news.setNewsId(Long.valueOf(dataArray.getJSONObject(i).getString("news_id")));
                             } catch (org.json.JSONException e) {
                                 e.printStackTrace();
                             }
                             news.setCollectStatus(false);
-                            news.setCommentNum(0);
-                            news.setInterestedStatus(true);
-                            news.setLikeStatus(true);
-                            news.setReadStatus(false);
                             news.setNewsCategory(text);
                             news.setNewsCategoryId(channel_id);
                             try {
@@ -74,10 +69,7 @@ public class NewsListFetcher {
                             } catch (org.json.JSONException e) {
                                 e.printStackTrace();
                             }
-                            news.setPublishTime((long) i);
-                            news.setMark(5);
                             news.setIsLarge(false);
-                            news.setPublishTime((long) 0);
                             newsList.add(news);
                         }
                     } catch (JSONException e) {

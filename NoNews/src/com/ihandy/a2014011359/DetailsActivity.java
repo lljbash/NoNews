@@ -59,7 +59,7 @@ public class DetailsActivity extends BaseActivity {
 		news_url = news.getSource_url();
 		news_title = news.getTitle();
 		news_source = news.getSource();
-		news_date = DateTools.getNewsDetailsDate(String.valueOf(news.getPublishTime()));
+		news_date = DateTools.getNewsDetailsDate(String.valueOf(0));
 	}
 
 	private void initWebView() {
@@ -94,7 +94,7 @@ public class DetailsActivity extends BaseActivity {
 		title.setTextSize(13);
 		title.setVisibility(View.VISIBLE);
 		title.setText(news_url);
-		action_comment_count.setText(String.valueOf(news.getCommentNum()));
+		action_comment_count.setText(String.valueOf(0));
 	}
 
 	@Override
