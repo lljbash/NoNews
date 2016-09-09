@@ -66,7 +66,7 @@ public class MainActivity extends FragmentActivity {
 	/** head 头部 的左侧菜单 按钮*/
 	private ImageView top_head;
 	/** head 头部 的右侧菜单 按钮*/
-	private ImageView top_more;
+	//private ImageView top_more;
 	/** 请求CODE */
 	public final static int CHANNEL_REQUEST = 1;
 	/** 调整返回的RESULT_CODE */
@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity {
 		shade_left = (ImageView) findViewById(R.id.shade_left);
 		shade_right = (ImageView) findViewById(R.id.shade_right);
 		top_head = (ImageView) findViewById(R.id.top_head);
-		top_more = (ImageView) findViewById(R.id.top_more);
+		//top_more = (ImageView) findViewById(R.id.top_more);
 		top_refresh = (ImageView) findViewById(R.id.top_refresh);
 		top_progress = (ProgressBar) findViewById(R.id.top_progress);
 		button_more_columns.setOnClickListener(new OnClickListener() {
@@ -115,7 +115,7 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		});
-		top_more.setOnClickListener(new OnClickListener() {
+		/*top_more.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -126,7 +126,7 @@ public class MainActivity extends FragmentActivity {
 					side_drawer.showSecondaryMenu();
 				}
 			}
-		});
+		});*/
 		top_refresh.setOnClickListener(new OnClickListener() {
 
 			@Override
