@@ -40,10 +40,8 @@ public class MainActivity extends FragmentActivity {
 	/** 自定义HorizontalScrollView */
 	private ColumnHorizontalScrollView mColumnHorizontalScrollView;
 	LinearLayout mRadioGroup_content;
-	LinearLayout ll_more_columns;
 	RelativeLayout rl_column;
 	private ViewPager mViewPager;
-	private ImageView button_more_columns;
 	/** 用户选择的新闻分类列表*/
 	private ArrayList<ChannelItem> userChannelList=new ArrayList<ChannelItem>();
 	/** 当前选中的栏目*/
@@ -62,12 +60,8 @@ public class MainActivity extends FragmentActivity {
 	
 	/** head 头部 的中间的loading*/
 	private ProgressBar top_progress;
-	/** head 头部 中间的刷新按钮*/
-	private ImageView top_refresh;
 	/** head 头部 的左侧菜单 按钮*/
 	private ImageView top_head;
-	/** head 头部 的右侧菜单 按钮*/
-	//private ImageView top_more;
 	/** 请求CODE */
 	public final static int CHANNEL_REQUEST = 1;
 	/** 调整返回的RESULT_CODE */
@@ -86,25 +80,13 @@ public class MainActivity extends FragmentActivity {
 	private void initView() {
 		mColumnHorizontalScrollView =  (ColumnHorizontalScrollView)findViewById(R.id.mColumnHorizontalScrollView);
 		mRadioGroup_content = (LinearLayout) findViewById(R.id.mRadioGroup_content);
-		ll_more_columns = (LinearLayout) findViewById(R.id.ll_more_columns);
 		rl_column = (RelativeLayout) findViewById(R.id.rl_column);
-		button_more_columns = (ImageView) findViewById(R.id.button_more_columns);
 		mViewPager = (ViewPager) findViewById(R.id.mViewPager);
 		shade_left = (ImageView) findViewById(R.id.shade_left);
 		shade_right = (ImageView) findViewById(R.id.shade_right);
 		top_head = (ImageView) findViewById(R.id.top_head);
 		//top_more = (ImageView) findViewById(R.id.top_more);
-		top_refresh = (ImageView) findViewById(R.id.top_refresh);
 		top_progress = (ProgressBar) findViewById(R.id.top_progress);
-		button_more_columns.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent_channel = new  Intent(getApplicationContext(), ChannelActivity.class);
-				startActivityForResult(intent_channel, CHANNEL_REQUEST);
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-			}
-		});
 		top_head.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -115,26 +97,6 @@ public class MainActivity extends FragmentActivity {
 				}else{
 					side_drawer.showMenu();
 				}
-			}
-		});
-		/*top_more.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if(side_drawer.isSecondaryMenuShowing()){
-					side_drawer.showContent();
-				}else{
-					side_drawer.showSecondaryMenu();
-				}
-			}
-		});*/
-		top_refresh.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				NewsFragment fragment = (NewsFragment)(fragments.get(columnSelectIndex));
-				fragment.updateData();
 			}
 		});
 		setChangeView();
@@ -158,7 +120,7 @@ public class MainActivity extends FragmentActivity {
 	private void initTabColumn() {
 		mRadioGroup_content.removeAllViews();
 		int count =  userChannelList.size();
-		mColumnHorizontalScrollView.setParam(this, mScreenWidth, mRadioGroup_content, shade_left, shade_right, ll_more_columns, rl_column);
+		mColumnHorizontalScrollView.setParam(this, mScreenWidth, mRadioGroup_content, shade_left, shade_right, rl_column);
 		for(int i = 0; i< count; i++){
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT , LayoutParams.WRAP_CONTENT);
 			params.leftMargin = 5;

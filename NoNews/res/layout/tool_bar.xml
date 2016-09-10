@@ -39,7 +39,7 @@
                 android:id="@+id/action_repost"
                 android:clickable="true"
                 style="@style/toolbar_action"
-                android:src="@drawable/ic_action_repost" />
+                android:src="@drawable/share2" />
         </FrameLayout>
     </LinearLayout>
 

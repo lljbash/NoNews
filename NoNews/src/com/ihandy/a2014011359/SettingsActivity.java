@@ -1,10 +1,8 @@
 package com.ihandy.a2014011359;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.ihandy.a2014011359.base.BaseActivity;
@@ -16,7 +14,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings);
+		setContentView(R.layout.about);
 		initView();
 		initData();
 	}

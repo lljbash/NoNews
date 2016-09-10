@@ -58,7 +58,7 @@
                     <TextView
                         android:id="@+id/list_mode_text"
                         style="@style/setting_item_text"
-                        android:text="name:Haoyue Tong" />
+                        android:text="name: 李凌劼" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -78,7 +78,7 @@
                     <TextView
                         android:id="@+id/font_size_text"
                         style="@style/setting_item_text"
-                        android:text="student number:2014011403" />
+                        android:text="student number: 2014011359" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -102,7 +102,7 @@
                     <TextView
                         android:id="@+id/list_comment_text"
                         style="@style/setting_item_text"
-                        android:text="email:tong-14@mails.tsinghua.edu.cn" />
+                        android:text="email: llj_95@163.com" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -126,7 +126,7 @@
                     <TextView
                         android:id="@+id/refresh_list_text"
                         style="@style/setting_item_text"
-                        android:text="phone:18813119655" />
+                        android:text="phone: 17888802356" />
 
                     <View
                         android:layout_width="0.0dip"
@@ -146,25 +146,13 @@
                 <LinearLayout
                     android:id="@+id/setting_load_image"
                     style="@style/setting_item_center"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/load_image_text"
-                        style="@style/setting_item_text"
-                        android:text="@string/setting_load_image" />
-
-                    <View
-                        android:layout_width="0.0dip"
-                        android:layout_height="1.0dip"
-                        android:layout_weight="1.0" />
-
-                    <TextView
-                        android:id="@+id/load_image_mode"
-                        style="@style/setting_alt_text" />
+                    android:layout_height="250dp">
 
                     <ImageView
-                        android:id="@+id/load_image_arrow"
-                        style="@style/setting_arrow" />
+                        android:id="@+id/load_image_text"
+                        style="@style/setting_item_text"
+                        android:src="@drawable/splash" />
+
                 </LinearLayout>
 
                 <LinearLayout

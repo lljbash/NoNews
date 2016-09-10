@@ -100,8 +100,8 @@ public class DetailsActivity extends BaseActivity {
 			settings.setJavaScriptEnabled(true);//设置可以运行JS脚本
 //			settings.setTextZoom(120);//Sets the text zoom of the page in percent. The default is 100.
 			settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-//			settings.setUseWideViewPort(true); //打开页面时， 自适应屏幕 
-//			settings.setLoadWithOverviewMode(true);//打开页面时， 自适应屏幕 
+//			settings.setUseWideViewPort(true); //打开页面时， 自适应屏幕
+//			settings.setLoadWithOverviewMode(true);//打开页面时， 自适应屏幕
 			settings.setSupportZoom(false);// 用于设置webview放大
 			settings.setBuiltInZoomControls(false);
 			webView.setBackgroundResource(R.color.transparent);
